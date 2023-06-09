@@ -9,8 +9,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ title }} | Forex4You</title>
     @!section('head')
-    <!-- Layout config Js -->
-    <script src="/assets/js/layout.js"></script>
     <!-- Bootstrap Css -->
     <link href="/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <!-- Icons Css -->
@@ -26,6 +24,8 @@
     <div id="layout-wrapper">
 
         @include('includes/header')
+        <!-- removeNotificationModal -->
+        {{-- @!component('components/removeNotificationModal') --}}
         {{-- App mennu --}}
         @include('includes/app-menu')
         {{-- Vertical overlay --}}
@@ -54,6 +54,9 @@
 
     @section('scripts')
     <!-- JAVASCRIPT -->
+    <!-- Layout config Js -->
+    <script src="/assets/js/layout.js"></script>
+
     <script src="/assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="/assets/libs/simplebar/simplebar.min.js"></script>
     <script src="/assets/libs/node-waves/waves.min.js"></script>
