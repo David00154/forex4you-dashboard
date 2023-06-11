@@ -12,6 +12,7 @@
     "@adonisjs/assembler": "^5.9.5",
     "@babel/core": "^7.22.1",
     "@babel/preset-env": "^7.22.4",
+    "@faker-js/faker": "^8.0.2",
     "@japa/preset-adonis": "^1.2.0",
     "@japa/runner": "^2.5.1",
     "@symfony/webpack-encore": "^4.1.1",

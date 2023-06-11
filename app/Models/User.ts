@@ -20,13 +20,13 @@ export default class User extends BaseModel {
   public email: string;
 
   @column()
-  public username: string;
+  public userName: string;
 
   @column()
   public country: string;
 
   @column()
-  public phoneNumber: number;
+  public phoneNumber: string;
 
   @column({ serializeAs: null })
   public password: string;
@@ -39,6 +39,21 @@ export default class User extends BaseModel {
 
   @column()
   public balance: number;
+
+  @column()
+  public tradeDuration: number;
+
+  @column()
+  public profitPositivity: number;
+
+  @column()
+  public profitPercentage: number;
+
+  @column()
+  public validThruDay: string;
+
+  @column()
+  public validThruMonth: string;
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime;

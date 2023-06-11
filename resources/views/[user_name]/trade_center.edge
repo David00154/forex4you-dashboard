@@ -12,76 +12,221 @@
     <div class="row">
         <div class="col">
             {{-- main --}}
-            <div class="h-100">
-                {{-- show if account is not activated --}}
-                <div class="row pb-1">
-                    <div class="col-sm-auto">
-                        <div class="alert alert-danger alert-top-border alert-dismissible fade show" role="alert">
-                            <i class="ri-error-warning-line me-3 align-middle fs-16 text-danger "></i>
-                            <strong>Account status</strong>
-                            - unverified
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
-                            </button>
+            {{-- <div class="h-100"> --}}
+                <div class="">
+                    {{-- show if account is not activated --}}
+                    @if(!is_verified)
+                    <div class="row pb-1">
+                        <div class="col-sm-auto">
+                            <div class="alert alert-danger alert-top-border alert-dismissible fade show" role="alert">
+                                <i class="ri-error-warning-line me-3 align-middle fs-16 text-danger "></i>
+                                <strong>Account status</strong>
+                                - unverified
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                                </button>
+                            </div>
                         </div>
                     </div>
-                </div>
-                {{-- 1 --}}
-                <div class="row mb-2 pb-1">
-                    <div class="col-12">
-                        <div class="d-flex align-items-lg-center flex-lg-row flex-column">
-                            <div class="flex-grow-1">
-                                <h4 class="fs-16 mb-1">Hello, Anna!</h4>
-                                <p class="text-muted mb-0">Here's what's happening with your trade today.</p>
-                            </div>
-                            {{-- end left --}}
-                            <div class="mt-3 mt-lg-0">
-                                <form action="javascript:void(0);">
-                                    <div class="row g-3 mb-0 align-items-center">
-                                        <div class="col-sm-auto">
-                                            <div class="input-group">
-                                                <input type="text" value="{{new Date().toDateString()}}"
-                                                    class="form-control border-0 dash-filter-picker shadow"
-                                                    data-provider="flatpickr" data-range-date="true"
-                                                    data-date-format="d M, Y"
-                                                    data-deafult-date="01 Jan 2022 to 31 Jan 2022" readonly>
-                                                <div class="input-group-text bg-primary border-primary text-white">
-                                                    <i class="ri-calendar-2-line"></i>
+                    @end
+                    {{-- 1 --}}
+                    <div class="row mb-3 pb-1">
+                        <div class="col-12">
+                            <div class="d-flex align-items-lg-center flex-lg-row flex-column">
+                                <div class="flex-grow-1">
+                                    <h4 class="fs-16 mb-1">Hello, {{full_name.split(' ')[0]}}!</h4>
+                                    <p class="text-muted mb-0">Here's what's happening with your trade today.</p>
+                                </div>
+                                {{-- end left --}}
+                                <div class="mt-3 mt-lg-0">
+                                    <form action="javascript:void(0);">
+                                        <div class="row g-3 mb-0 align-items-center">
+                                            <div class="col-sm-auto">
+                                                <div class="input-group">
+                                                    <input type="text" value="{{new Date().toDateString()}}"
+                                                        class="form-control border-0 dash-filter-picker shadow"
+                                                        data-provider="flatpickr" data-range-date="true"
+                                                        data-date-format="d M, Y"
+                                                        data-deafult-date="01 Jan 2022 to 31 Jan 2022" readonly>
+                                                    <div class="input-group-text bg-primary border-primary text-white">
+                                                        <i class="ri-calendar-2-line"></i>
+                                                    </div>
                                                 </div>
                                             </div>
+                                            <!--end col-->
                                         </div>
-                                        <!--end col-->
-                                    </div>
-                                    <!--end row-->
-                                </form>
+                                        <!--end row-->
+                                    </form>
+                                </div>
+                                {{-- end right --}}
                             </div>
-                            {{-- end right --}}
                         </div>
                     </div>
-                </div>
-                {{-- end row --}}
-                {{-- Trade Duration (2) --}}
-                <div class="row">
-                    <div class="col-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title" style="margin-bottom: 1.7rem !important;">Trade Duration</h5>
-                                <div class="progress animated-progress custom-progress progress-label">
-                                    <div class="progress-bar bg-danger" role="progressbar" style="width: 10%"
-                                        aria-valuenow="10" aria-valuemin="10" aria-valuemax="100">
-                                        <div class="label">10%</div>
+                    {{-- end row --}}
+                    {{-- Stats (2) --}}
+                    <div class="row">
+                        <div class="col-xl-4 col-md-6">
+                            <!-- card -->
+                            <div class="card cards-header-home card-animate">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between">
+                                        <div>
+                                            <p class="fw-medium text-uppercase text-muted mb-0">Earnings</p>
+                                            <h2 class="mt-3 ff-secondary fw-semibold" style="margin-bottom: 1.2rem;">
+                                                $<span class="counter-value" data-target="{{profit}}">{{profit}}</span>
+                                            </h2>
+                                            <p class="mb-0 text-muted"><span class="badge bg-light text-muted mb-0">
+                                                    {{-- <i class="ri-arrow-up-line align-middle"></i> --}}
+                                                    {{profit_percentage}} % </span> vs.
+                                                previous week</p>
+
+                                        </div>
+                                        {{-- <div> --}}
+                                            <div class="d-flex align-items-start">
+                                                <div class="circle bg-success">
+                                                    <div class="circle-inner">
+                                                        <h5 class="text-muted fs-17 mb-0">{{profit_positivity}}</h5>
+                                                        <h3 class="text-muted text-uppercase mb-0 ">positive</h3>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            {{--
+                                        </div> --}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!-- end col -->
+                        <div class="col-xl-4 col-md-6">
+                            <!-- card -->
+                            <div class="card cards-header-home card-animate">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between">
+                                        <div>
+                                            <p class="fw-medium text-uppercase text-warning mb-0">Balance</p>
+                                            <h2 class="mt-3 mb-3 ff-secondary fw-semibold">$<span class="counter-value"
+                                                    data-target="{{balance}}">{{balance}}</span></h2>
+                                            {{-- <p class="mb-0 text-muted"><span
+                                                    class="badge bg-light text-success mb-0"><i
+                                                        class="ri-arrow-up-line align-middle"></i> 16.24 % </span>
+                                                vs.
+                                                previous month</p> --}}
+                                            <div class="d-flex justify-content-between gap-3">
+                                                <div>
+                                                    <h5 class="text-muted mb-0 text-uppercase fs-13 mb-2">Valid thru
+                                                    </h5>
+                                                    <h5 class="text-muted mb-0 fs-13">
+                                                        {{valid_thru_day}}/{{valid_thru_month}}
+                                                    </h5>
+                                                </div>
+
+                                                <div>
+                                                    <h5 class="text-muted mb-0 text-uppercase fs-13 mb-2">Card
+                                                        holder
+                                                    </h5>
+                                                    <a href="" class=" text-secondary fs-13">{{full_name}}</a>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        {{-- <div> --}}
+                                            <div class="d-flex align-items-start">
+                                                <img src="/assets/images/saving.png" alt="" class="avatar-md"
+                                                    style="height: 4.6rem; width: 4.6rem;">
+                                            </div>
+                                            {{--
+                                        </div> --}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!-- end col -->
+                    </div> <!-- end row-->
+                    {{-- Trade Duration (3) --}}
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title" style="margin-bottom: 1.7rem !important;">Trade Duration
+                                    </h5>
+                                    <div class="progress animated-progress custom-progress progress-label">
+                                        <div class="progress-bar bg-danger" role="progressbar"
+                                            style="width: {{trade_duration}}%" aria-valuenow="{{trade_duration}}"
+                                            aria-valuemin="{{trade_duration}}" aria-valuemax="100">
+                                            <div class="label">{{trade_duration}}%</div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    {{-- end row --}}
+                    {{-- Graph (3) --}}
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body trade-widget-viewer">
+                                    <div class="tradingview-widget-container">
+                                        <div id="tradingview_19631">
+                                            <div id="tradingview_d9dd3-wrapper"
+                                                style="position: relative;box-sizing: content-box;width: auto;height: calc(498px - 32px);margin: 0 auto !important;padding: 0 !important;font-family: -apple-system, BlinkMacSystemFont, 'Trebuchet MS', Roboto, Ubuntu, sans-serif;">
+                                                <div
+                                                    style="width: auto;height: calc(498px - 32px);background: transparent;padding: 0 !important;">
+                                                    <iframe id="tradingview_d9dd3"
+                                                        src="https://s.tradingview.com/widgetembed/?frameElementId=tradingview_d9dd3&amp;symbol=COINBASE%3ABTCUSD&amp;interval=D&amp;symboledit=1&amp;saveimage=1&amp;toolbarbg=f1f3f6&amp;hotlist=1&amp;studies=%5B%5D&amp;theme=Dark&amp;style=0&amp;timezone=Etc%2FUTC&amp;studies_overrides=%7B%7D&amp;overrides=%7B%7D&amp;enabled_features=%5B%5D&amp;disabled_features=%5B%5D&amp;locale=en&amp;utm_source=dashboard.timelineinvestment.space&amp;utm_medium=widget_new&amp;utm_campaign=chart&amp;utm_term=COINBASE%3ABTCUSD#%7B%22page-uri%22%3A%22dashboard.timelineinvestment.space%2Faccount%2Findex.php%22%7D"
+                                                        style="width: 100%; height: 100%; margin: 0 !important; padding: 0 !important;"
+                                                        frameborder="0" allowtransparency="true" scrolling="no"
+                                                        allowfullscreen="">
+                                                    </iframe>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="tradingview-widget-copyright" style="width: 100%;"></div>
+                                        <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+                                        <script type="text/javascript">
+                                            new TradingView.widget({
+                                            "width": "auto",
+                                            "height": 498,
+                                            "symbol": "COINBASE:BTCUSD",
+                                            "interval": "D",
+                                            "timezone": "Etc/UTC",
+                                            "theme": "Dark",
+                                            "style": "0",
+                                            "locale": "en",
+                                            "toolbar_bg": "#f1f3f6",
+                                            "enable_publishing": false,
+                                            "allow_symbol_change": true,
+                                            "hotlist": true,
+                                            "container_id": "tradingview_19631"
+                                          });
+                                        </script>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {{-- end row --}}
                 </div>
-                {{-- end row --}}
             </div>
+            {{-- end col --}}
+            <div class="col-auto layout-rightside-col">
+            </div>
+            {{-- end col --}}
         </div>
-        {{-- end col --}}
-        <div class="col-auto layout-rightside-col">
-        </div>
-        {{-- end col --}}
     </div>
-</div>
-@end
+    @end
+
+    @section('scripts')
+    @super
+    <script>
+        // let profit_chart = new ApexCharts(document.querySelector("#profit_chart"),{
+        //     series: [1],
+        //     chart: { height: 280, type: "donut" },
+        //     dataLabels: { enabled: false },
+        //     legend: { position: "bottom", },
+        //     colors: ["--vz-primary"],
+        // })
+        // async function initChart(_xchart) {
+        //     await _xchart.render()
+        // }
+        // initChart(profit_chart)
+    </script>
+    @end

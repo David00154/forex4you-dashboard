@@ -31,7 +31,12 @@ Route.group(() => {
   Route.get("/login", "AuthController.loginShow").as("login.show");
   Route.get("/signup", "AuthController.signupShow").as("signup.show");
   Route.get("/logout", "AuthController.logout").as("logout");
+
+  Route.post("/login", "AuthController.login").as("login");
+  Route.post("/signup", "AuthController.signup").as("signup");
 }).prefix("auth");
+
+// Admin Stuff
 
 // User/Client Stuff
 Route.group(() => {
@@ -43,7 +48,6 @@ Route.group(() => {
   Route.get("/change-password", "ProfileController.changePasswordShow").as(
     "change-password.show"
   );
-}).prefix(":username");
-// .middleware("auth");
-
-// Admin Stuff
+})
+  .prefix(":username")
+  .middleware("auth");
