@@ -50,7 +50,7 @@
     }
 }
 
-@media (min-width: 1028px) {
+@media (min-width: 768px) {
     .card.cards-header-home {
         height: 158px;
     }

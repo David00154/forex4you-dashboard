@@ -30,15 +30,51 @@ export default class User extends BaseModel {
 
   @column({ serializeAs: null })
   public password: string;
-
+  // new Intl.NumberFormat('en-us').format(value)
   @column()
   public rememberMeToken: string | null;
 
-  @column()
+  @column({
+    serialize(value) {
+      return new Intl.NumberFormat("en-us").format(value);
+    },
+  })
   public profit: number;
 
-  @column()
+  @column({
+    serialize(value) {
+      return new Intl.NumberFormat("en-us").format(value);
+    },
+  })
   public balance: number;
+
+  @column({
+    serialize(value) {
+      return new Intl.NumberFormat("en-us").format(value);
+    },
+  })
+  public totalDeposit: number;
+
+  @column({
+    serialize(value) {
+      return new Intl.NumberFormat("en-us").format(value);
+    },
+  })
+  public totalWithdraws: number;
+
+  @column({
+    serialize(value) {
+      return new Intl.NumberFormat("en-us").format(value);
+    },
+  })
+  public totalBonus: number;
+
+  @column({
+    serialize(value) {
+      return new Intl.NumberFormat("en-us").format(value);
+    },
+  })
+  public totalReferralBonus: number;
 
   @column()
   public tradeDuration: number;

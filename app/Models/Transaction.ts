@@ -5,8 +5,22 @@ export default class Transaction extends BaseModel {
   @column({ isPrimary: true })
   public id: number;
 
-  @column()
+  @column({
+    serialize(value) {
+      return new Intl.NumberFormat("en-us").format(value);
+    },
+  })
   public amount: number;
+
+  @column()
+  public userId: number;
+
+  @column({
+    serialize(value) {
+      return Boolean(value);
+    },
+  })
+  public status: boolean;
 
   @column()
   public transactionType: string;
