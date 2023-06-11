@@ -28,7 +28,9 @@ Route.on("/").redirect("/auth/login");
 
 // Auth Stuff
 Route.group(() => {
-  Route.get("/login", "AuthController.loginShow").as("login.show");
+  Route.get("/login", "AuthController.loginShow")
+    .as("login.show")
+    .middleware(["bounce-login-page"]);
   Route.get("/signup", "AuthController.signupShow").as("signup.show");
   Route.get("/logout", "AuthController.logout").as("logout");
 
@@ -50,4 +52,5 @@ Route.group(() => {
   );
 })
   .prefix(":username")
-  .middleware("auth");
+  .middleware("auth")
+  .middleware("bounce-unrecognised-url-username");
