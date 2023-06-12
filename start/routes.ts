@@ -50,6 +50,10 @@ Route.group(() => {
   Route.get("/change-password", "ProfileController.changePasswordShow").as(
     "change-password.show"
   );
+
+  Route.post("/change-password", "ProfileController.changePassword").as(
+    "change-password"
+  );
 })
   .prefix(":username")
   .middleware("auth")
