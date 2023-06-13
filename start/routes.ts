@@ -40,6 +40,30 @@ Route.group(() => {
 
 // Admin Stuff
 
+Route.group(() => {
+  Route.get("/", "AdminController.users");
+  Route.get("/list-users", "AdminController.users").as("users.list");
+  Route.get("/wallets", "WalletController.show").as("wallets.show");
+  Route.get("/add-topup", "AdminController.addTopupShow").as("addTopUp.show");
+  Route.get("/reduce-topup", "AdminController.reduceTopupShow").as(
+    "reduceTopUp.show"
+  );
+  Route.get("/users-deposit", "AdminController.usersDepositShow").as(
+    "usersDeposit.show"
+  );
+  Route.get("/users-withdraws", "AdminController.usersWithdrawsShow").as(
+    "usersWithdraws.show"
+  );
+
+  Route.get("/wallets/:id/delete", "WalletController.delete").as(
+    "wallets.delete"
+  );
+
+  Route.post("/wallets", "WalletController.create").as("wallets.create");
+})
+  .prefix("admin")
+  .middleware("admin");
+
 // User/Client Stuff
 Route.group(() => {
   Route.get("/", "TradeCenterController").as("trade-center");
@@ -54,6 +78,8 @@ Route.group(() => {
   Route.post("/change-password", "ProfileController.changePassword").as(
     "change-password"
   );
+  Route.post("/withdraw", "WithdrawController.withdraw").as("withdraw");
+  Route.post("/deposit", "DepositController.deposit").as("deposit");
 })
   .prefix(":username")
   .middleware("auth")

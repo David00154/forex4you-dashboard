@@ -28,7 +28,8 @@ export default class User extends BaseModel {
   @column()
   public phoneNumber: string;
 
-  @column({ serializeAs: null })
+  // @column({ serializeAs: null })
+  @column()
   public password: string;
   // new Intl.NumberFormat('en-us').format(value)
   @column()
@@ -91,7 +92,12 @@ export default class User extends BaseModel {
   @column()
   public validThruMonth: string;
 
-  @column.dateTime({ autoCreate: true })
+  @column.dateTime({
+    autoCreate: true,
+    serialize(value) {
+      return new Date(value).toLocaleString();
+    },
+  })
   public createdAt: DateTime;
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })

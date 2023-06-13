@@ -1,6 +1,5 @@
 @layout('layouts/main')
-@set('title', 'Withdraw')
-
+@set('title', 'Wallets')
 @section('body')
 <div class="container-fluid">
     <!-- start page title -->
@@ -13,7 +12,7 @@
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="/">Forex4You</a></li>
-                        <li class="breadcrumb-item active">Withdraw</li>
+                        <li class="breadcrumb-item active">Wallets</li>
                     </ol>
                 </div>
 
@@ -25,21 +24,6 @@
         <div class="col">
             {{-- main --}}
             <div>
-                {{-- show if account is not activated --}}
-                @if(!is_verified)
-                <div class="row pb-1">
-                    <div class="col-sm-auto">
-                        <div class="alert alert-danger alert-top-border alert-dismissible fade show" role="alert">
-                            <i class="ri-error-warning-line me-3 align-middle fs-16 text-danger "></i>
-                            <strong>Account status</strong>
-                            - unverified
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                @end
-                {{-- end row --}}
                 {{-- alerts (1) --}}
                 @if(flashMessages.has('form.error'))
                 <div class="row pb-1">
@@ -72,29 +56,23 @@
 
                         <div class="card">
                             <div class="card-header align-items-center mb-0">
-                                <h4 class="card-title mb-0 flex-grow-1">Withdraw</h4>
+                                <h4 class="card-title mb-0 flex-grow-1">Add Wallet</h4>
                             </div>
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-xl-12">
                                         <div class="mt-4">
-                                            <form method="post" action="{{route('withdraw', {username: user_name})}}"
+                                            <form method="post" action="{{route('wallets.create')}}"
                                                 class="needs-validation" novalidate action="index.html">
 
                                                 <div class="mb-3">
-                                                    <label for="amount" class="form-label">Amount {{-- <span
-                                                            class="text-danger">*</span>
-                                                        --}}
+                                                    <label for="name" class="form-label">Wallet Type
                                                     </label>
-                                                    <div class="input-group">
-                                                        <span class="input-group-text">$</span>
-                                                        <input value="{{ flashMessages.get('amount', '') ?? '' }}"
-                                                            name="amount" type="text" class="form-control" id="amount"
-                                                            placeholder="Enter amount" required>
-
-                                                    </div>
+                                                    <input value="{{ flashMessages.get('wallet_name', '') ?? '' }}"
+                                                        name="wallet_name" type="text" class="form-control" id="name"
+                                                        placeholder="Enter wallet type" required>
                                                     <div class="invalid-feedback">
-                                                        Please enter amount
+                                                        Please enter wallet type
                                                     </div>
                                                 </div>
 
@@ -111,7 +89,7 @@
 
                                                 <div class="mt-4">
                                                     <button class="btn btn-soft-warning w-100"
-                                                        type="submit">Withdraw</button>
+                                                        type="submit">Create</button>
                                                 </div>
                                             </form>
                                         </div>
@@ -127,55 +105,40 @@
                     <div class="col-xl-12">
                         <div class="card">
                             <div class="card-header align-items-center mb-0">
-                                <h4 class="card-title mb-0 flex-grow-1">Withdrawal transactions</h4>
+                                <h4 class="card-title mb-0 flex-grow-1">Wallets</h4>
                             </div>
                             <div class="card-body">
-                                <div class="table-responsive table-card">
+                                <div class="table-responsive table-card mt-3">
                                     <table class="table align-middle table-nowrap mb-0">
                                         <thead class="table-light">
                                             <tr>
                                                 <th scope="col" style="width: 46px;">
                                                 </th>
                                                 <th scope="col">ID</th>
-                                                <th scope="col">Transaction Type</th>
-                                                <th scope="col">Amount</th>
-                                                <th scope="col">Status</th>
-                                                <th scope="col">Date</th>
+                                                <th scope="col">Wallet Name</th>
+                                                <th scope="col">Address</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @if(transactions.length > 0)
-                                            @each(transaction in transactions)
-                                            @if(transaction.transaction_type !== 'DEPOSIT')
+                                            @if(wallets.length > 0)
+                                            @each(wallet in wallets)
                                             <tr>
                                                 <td>
+                                                    <a href="/admin/wallets/{{wallet.id}}/delete"
+                                                        class="btn btn-soft-danger btn-sm">Delete</a>
                                                 </td>
-                                                <td><a href="#" class="fw-medium">#FY4-{{transaction.id}}</a></td>
-                                                <td>
-                                                    {{-- Transaction type --}}
-                                                    {{transaction.transaction_type}}
-                                                </td>
-                                                <td>${{transaction.amount}}</td>
-                                                <td>
-                                                    @if(transaction.status)
-                                                    <span class="badge bg-success">Approved</span>
-                                                    @else
-                                                    <span class="badge bg-danger">Pending</span>
-                                                    @end
+                                                <td><a href="#" class="fw-medium">#FY4-{{wallet.id}}</a>
                                                 </td>
                                                 <td>
-                                                    {{-- Date --}}
-                                                    {{transaction.created_at}}
+                                                    {{wallet.wallet_name}}
                                                 </td>
+                                                <td>{{wallet.wallet_address}}</td>
                                             </tr>
-                                            @end
                                             @end
                                             @else
                                             <tr>
                                                 <td>
                                                 </td>
-                                                <td></td>
-                                                <td></td>
                                                 <td></td>
                                                 <td></td>
                                                 <td></td>

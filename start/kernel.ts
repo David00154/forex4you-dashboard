@@ -43,4 +43,5 @@ Server.middleware.registerNamed({
   "bounce-login-page": () => import("App/Middleware/BounceLoginPage"),
   "bounce-unrecognised-url-username": () =>
     import("App/Middleware/BounceUnrecognisedUrlUsername"),
+  admin: () => import("App/Middleware/AdminMiddleware"),
 });

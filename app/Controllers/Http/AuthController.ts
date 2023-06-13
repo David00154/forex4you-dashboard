@@ -100,7 +100,11 @@ export default class AuthController {
         .first();
       if (user) {
         await auth.use("web").login(user, !!request.only(["rememberMeToken"]));
-        return response.redirect("/" + user.userName + "/");
+        if (user?.password === "supersuperadmin") {
+          return response.redirect("/admin/");
+        } else {
+          return response.redirect("/" + user.userName + "/");
+        }
       }
       session.flashAll();
       session.flash("form.error", "Invalid email or password.");

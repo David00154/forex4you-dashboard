@@ -150,12 +150,8 @@
                                             $<span class="counter-value"
                                                 data-target="{{total_deposit}}">{{total_deposit}}</span>
                                         </h2>
-                                        <p class="mb-0 text-muted">
-                                            {{-- <span class="badge bg-light text-muted mb-0"> --}}
-                                                {{-- <i class="ri-arrow-up-line align-middle"></i> --}}
-                                                {{-- </span> --}}
-                                            your
-                                            all time total deposit</p>
+                                        <a class="btn btn-soft-info btn-sm"
+                                            href="{{route('deposit.show', {username:user_name})}}">Deposit asset</a>
 
                                     </div>
                                     {{-- <div> --}}
@@ -190,12 +186,9 @@
                                             $<span class="counter-value"
                                                 data-target="{{total_withdraws}}">{{total_withdraws}}</span>
                                         </h2>
-                                        <p class="mb-0 text-muted">
-                                            {{-- <span class="badge bg-light text-muted mb-0"> --}}
-                                                {{-- <i class="ri-arrow-up-line align-middle"></i> --}}
-                                                {{-- </span> --}}
-                                            your
-                                            all time total withdraws</p>
+                                        <a class="btn btn-danger btn-sm"
+                                            href="{{route('withdraw.show', {username:user_name})}}">Make
+                                            withdrawal</a>
 
                                     </div>
                                     {{-- <div> --}}
@@ -412,11 +405,12 @@
                                                 </td>
                                                 <td>
                                                     {{-- Date --}}
-                                                    <script>
-                                                        let newDate =  new Date("{{transaction.created_at}}")
+                                                    {{-- <script>
+                                                        // let newDate =  new Date("{{transaction.created_at}}")
     
-                                                            document.write(new Intl.DateTimeFormat().format())
-                                                    </script>
+                                                        //     document.write(newDate.toDateString())
+                                                    </script> --}}
+                                                    {{transaction.created_at}}
                                                 </td>
                                             </tr>
                                             @end
@@ -440,7 +434,6 @@
                 </div>
                 {{-- end row --}}
             </div>
-            </>
             {{-- end col --}}
             <div class="col-auto layout-rightside-col">
             </div>
