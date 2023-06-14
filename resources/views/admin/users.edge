@@ -103,6 +103,18 @@
                                                 </div>
 
                                                 <div class="mb-3">
+                                                    <label for="status" class="form-label">Verification Status
+                                                    </label>
+                                                    <select name="verification_status" id="status"
+                                                        class="verification-status">
+                                                        <option></option>
+                                                    </select>
+                                                    <div class="invalid-feedback">
+                                                        Please select verification status
+                                                    </div>
+                                                </div>
+
+                                                <div class="mb-3">
                                                     <label for="profit_positivity" class="form-label">Profit Positivity
                                                     </label>
                                                     <input
@@ -254,6 +266,20 @@
     $(document).ready(async function() {
         $('.select-user').select2({
             placeholder: "Please select user",
+            // allowClear: true,
+        })
+        $('.verification-status').select2({
+            placeholder: "Please select verification status",
+            data: [
+                {
+                    id:0,
+                    text:"Not Verified",
+                },
+                {
+                    id:1,
+                    text:"Verified",
+                },
+            ]
             // allowClear: true,
         })
         $.getJSON("/admin/users-get-all.json", (data) => {
