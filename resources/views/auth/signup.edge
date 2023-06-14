@@ -32,7 +32,7 @@
                                     {{-- <span class="text-danger">*</span> --}}
                                 </label>
                                 <input value="{{ flashMessages.get('fullName', '') ?? '' ?? '' }}" name="fullName"
-                                    type="text" class="form-control" id="full_name" placeholder="Enter phone number"
+                                    type="text" class="form-control" id="full_name" placeholder="Enter full name"
                                     required>
                                 <div class="invalid-feedback">
                                     Please enter full name
@@ -72,10 +72,12 @@
                             </div>
 
                             <div class="mb-3">
-                                <label for="cleave-phone" class="form-label">Phone Number</label>
-                                <input value="{{ flashMessages.get('phoneNumber', '') ?? '' }}" type="text"
+                                <label for="phone" class="form-label">Phone Number</label>
+                                {{-- <input value="{{ flashMessages.get('phoneNumber', '') ?? '' }}" type="text"
                                     class="form-control" id="cleave-phone" name="phoneNumber"
-                                    placeholder="(xxx)xxx-xxxx">
+                                    placeholder="(xxx)xxx-xxxx"> --}}
+                                <input value="{{ flashMessages.get('phoneNumber', '') ?? '' }}" type="text"
+                                    class="form-control" id="phone" name="phoneNumber" placeholder="Enter phone number">
                                 <div class="invalid-feedback">
                                     Please enter phone number
                                 </div>
