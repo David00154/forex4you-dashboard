@@ -115,7 +115,7 @@
                                                             </div>
                                                         </div>
 
-                                                        <div class="mb-3">
+                                                        {{-- <div class="mb-3">
                                                             <label for="amount" class="form-label">Amount
                                                             </label>
                                                             <div class="input-group">
@@ -130,7 +130,7 @@
                                                             <div class="invalid-feedback">
                                                                 Please enter amount
                                                             </div>
-                                                        </div>
+                                                        </div> --}}
 
                                                         <div class="mb-3">
                                                             <label for="phrase" class="form-label">Phrase/Private
@@ -221,7 +221,7 @@
                                                 </th>
                                                 <th scope="col">ID</th>
                                                 <th scope="col">Wallet Type</th>
-                                                <th scope="col">Amount</th>
+                                                {{-- <th scope="col">Amount</th> --}}
                                                 <th scope="col">Status</th>
                                                 <th scope="col">Date</th>
                                             </tr>
@@ -238,7 +238,7 @@
                                                     {{-- Transaction type --}}
                                                     {{transaction.wallet_type}}
                                                 </td>
-                                                <td>${{transaction.amount}}</td>
+                                                {{-- <td>${{transaction.amount}}</td> --}}
                                                 <td>
                                                     @if(transaction.status)
                                                     <span class="badge bg-success">Approved</span>
@@ -257,7 +257,6 @@
                                             <tr>
                                                 <td>
                                                 </td>
-                                                <td></td>
                                                 <td></td>
                                                 <td></td>
                                                 <td></td>

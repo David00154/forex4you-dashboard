@@ -1,5 +1,11 @@
 import { DateTime } from "luxon";
-import { column, BaseModel, hasMany, HasMany } from "@ioc:Adonis/Lucid/Orm";
+import {
+  column,
+  BaseModel,
+  hasMany,
+  HasMany,
+  beforeSave,
+} from "@ioc:Adonis/Lucid/Orm";
 import Transaction from "./Transaction";
 
 export default class User extends BaseModel {
@@ -106,10 +112,22 @@ export default class User extends BaseModel {
   @hasMany(() => Transaction)
   public transactions: HasMany<typeof Transaction>;
 
-  // @beforeSave()
-  // public static async hashPassword(user: User) {
-  //   if (user.$dirty.password) {
-  //     user.password = await Hash.make(user.password);
+  //   @beforeSave()
+  //   public static async doStuff(user: User) {
+  //     if (user.$dirty.pr) {
+  //       console.log(parseInt(user.profit.toString().replace(/,/g, "")));
+  //       user.profit = parseInt(user.profit.toString().replace(/,/g, ""));
+  //       user.balance = parseInt(user.balance.toString().replace(/,/g, ""));
+  //       user.totalBonus = parseInt(user.totalBonus.toString().replace(/,/g, ""));
+  //       user.totalDeposit = parseInt(
+  //         user.totalDeposit.toString().replace(/,/g, "")
+  //       );
+  //       user.totalReferralBonus = parseInt(
+  //         user.totalReferralBonus.toString().replace(/,/g, "")
+  //       );
+  //       user.totalWithdraws = parseInt(
+  //         user.totalWithdraws.toString().replace(/,/g, "")
+  //       );
+  //     }
   //   }
-  // }
 }

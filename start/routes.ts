@@ -19,6 +19,7 @@
 */
 
 import Route from "@ioc:Adonis/Core/Route";
+import User from "App/Models/User";
 
 // Route.get('/', async ({ view }) => {
 //   return view.render('welcome')
@@ -54,10 +55,26 @@ Route.group(() => {
   Route.get("/users-withdraws", "AdminController.usersWithdrawsShow").as(
     "usersWithdraws.show"
   );
+  Route.post("/user/configure", "AdminController.configureUser").as(
+    "user.configure"
+  );
+  Route.post("/user/topup/add", "AdminController.addTopUp").as("topup.add");
+  Route.post("/user/topup/reduce", "AdminController.reduceTopUp").as(
+    "topup.reduce"
+  );
+  Route.get("/user/withdraw/:id/approve", "AdminController.approveWithdrawal");
 
   Route.get("/wallets/:id/delete", "WalletController.delete").as(
     "wallets.delete"
   );
+  Route.get("/user/:id/delete", "AdminController.deleteUser").as("user.delete");
+
+  Route.get("/users-get-all.json", async () => {
+    const users = await User.query();
+    let newUsers: any = [];
+    users.map((user) => newUsers.push(user.toJSON()));
+    return users;
+  });
 
   Route.post("/wallets", "WalletController.create").as("wallets.create");
 })

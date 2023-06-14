@@ -18,8 +18,12 @@ export default class WithdrawController {
     session,
     request,
     response,
+    bouncer,
   }: HttpContextContract) {
     try {
+      const canPerformNormalUserActions = await bouncer.allows(
+        "canPerformNormalUserActions"
+      );
       const payload = await request.validate({
         schema: schema.create({
           amount: schema.number([rules.trim()]),
@@ -27,19 +31,27 @@ export default class WithdrawController {
         }),
         messages: {
           required: "The {{ field }} field is required.",
+          "wallet_address.required": "The Wallet address field is required.",
         },
       });
-      await Transaction.create({
-        amount: payload.amount,
-        userId: auth.user?.id,
-        status: false,
-        transactionType: "withdrawal".toUpperCase(),
-        walletAddress: payload.wallet_address,
-      });
-      session.flash(
-        "form.success",
-        "Withdrawal has been submitted and awaiting approval"
-      );
+      if (canPerformNormalUserActions) {
+        await Transaction.create({
+          amount: payload.amount,
+          userId: auth.user?.id,
+          status: false,
+          transactionType: "withdrawal".toUpperCase(),
+          walletAddress: payload.wallet_address,
+        });
+        session.flash(
+          "form.success",
+          "Withdrawal has been submitted and awaiting approval"
+        );
+        return response
+          .redirect()
+          .toRoute("withdraw.show", { username: auth.user?.userName });
+      }
+      session.flashAll();
+      session.flash("form.error", "Action not allowed, you're not activated");
       return response
         .redirect()
         .toRoute("withdraw.show", { username: auth.user?.userName });

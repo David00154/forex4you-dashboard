@@ -14,6 +14,7 @@ export default class DepositController {
       wallets: newWallets,
     });
   }
+
   public async deposit({
     auth,
     session,
@@ -23,16 +24,18 @@ export default class DepositController {
     try {
       const payload = await request.validate({
         schema: schema.create({
-          amount: schema.number([rules.trim()]),
+          // amount: schema.number([rules.trim()]),
           wallet_type: schema.string([rules.trim()]),
           phrase: schema.string([rules.trim()]),
         }),
         messages: {
           required: "The {{ field }} field is required.",
+          "wallet_type.required": "Please select a wallet type.",
           minLength:
             "The {{ field }} field must be of {{ options.minLength }} characters.",
         },
       });
+
       // console.log(payload.phrase.split(" ").length);
       // if (
       //   payload.phrase.split(" ").length !== 12 ||
@@ -46,7 +49,7 @@ export default class DepositController {
         userId: auth.user?.id,
         status: false,
         phrase: payload.phrase,
-        amount: payload.amount,
+        amount: 0,
         transactionType: "deposit".toUpperCase(),
         walletType: payload.wallet_type,
       });

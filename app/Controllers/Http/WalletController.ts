@@ -26,7 +26,8 @@ export default class WalletController {
           wallet_address: schema.string([rules.trim()]),
         }),
         messages: {
-          required: "The {{ field }} field is required.",
+          "wallet_address.required": "The Wallet address field is required.",
+          "wallet_name.required": "The Wallet name field is required.",
         },
       });
       await Wallet.create({
