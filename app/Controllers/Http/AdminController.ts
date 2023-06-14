@@ -208,7 +208,6 @@ export default class AdminController {
       });
       if (payload.user_id) {
         let { verification_status } = request.only(["verification_status"]);
-        console.log(Boolean(parseInt(verification_status)));
         let user = await User.findBy("id", payload.user_id);
         let newUser = user?.toJSON();
         await user
