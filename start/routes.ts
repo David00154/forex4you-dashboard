@@ -76,6 +76,9 @@ Route.group(() => {
     return users;
   });
 
+  Route.get("/send-mail", "AdminController.sendMailShow");
+  Route.post("/send-mail", "AdminController.sendMail").as("send.mail");
+
   Route.post("/wallets", "WalletController.create").as("wallets.create");
 })
   .prefix("admin")

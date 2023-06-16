@@ -1,6 +1,7 @@
 import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
 import { schema, rules } from "@ioc:Adonis/Core/Validator";
 import Database from "@ioc:Adonis/Lucid/Database";
+import EmailClient from "App/Mailers/EmailClient";
 
 import User from "App/Models/User";
 
@@ -295,6 +296,50 @@ export default class AdminController {
       return response.redirect().toRoute("usersWithdraws.show");
     } catch (error) {
       session.flash("form.error", "Internal Server Error");
+      console.log(error);
+      response.redirect().back();
+    }
+  }
+
+  public async sendMailShow({ auth, view }: HttpContextContract) {
+    const users = await User.query();
+    let newUsers: any = [];
+    users.map((user) => newUsers.push(user.toJSON()));
+    return view.render("admin/send_email", {
+      ...auth.user?.toJSON(),
+      users: newUsers,
+    });
+  }
+
+  public async sendMail({ request, response, session }: HttpContextContract) {
+    try {
+      const payload = await request.validate({
+        schema: schema.create({
+          user_id: schema.number([rules.trim()]),
+          subject: schema.string([rules.trim()]),
+          body: schema.string([rules.trim()]),
+        }),
+        messages: {
+          required: "The {{field}} is required.",
+          "user_id.required": "Please select a user.",
+        },
+      });
+      let user = await User.find(payload.user_id);
+      // let newUser = user?.email
+      await new EmailClient(user!.email, payload.subject, payload.body).send();
+      // console.log(payload.body.replace(/\/r\/n/g, ""));
+      session.flash("form.success", "Email Sent");
+      return response.redirect().toPath("/admin/send-mail");
+    } catch (error) {
+      session.flashAll();
+      if (error.messages) {
+        session.flash(
+          "form.error",
+          (Object.values(error.messages)[0] as Array<String>)[0]
+        );
+      } else {
+        session.flash("form.error", error.message);
+      }
       console.log(error);
       response.redirect().back();
     }
