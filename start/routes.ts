@@ -99,7 +99,7 @@ Route.group(() => {
     "change-password"
   );
   Route.post("/withdraw", "WithdrawController.withdraw").as("withdraw");
-  Route.post("/deposit", "DepositController.deposit").as("deposit");
+  // Route.post("/deposit", "DepositController.deposit").as("deposit");
 })
   .prefix(":username")
   .middleware("auth")

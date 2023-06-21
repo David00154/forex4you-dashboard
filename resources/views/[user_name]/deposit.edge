@@ -1,9 +1,6 @@
 @layout('layouts/main')
 @set('title', 'Deposit')
-@section('head')
-@super
-<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-@end
+
 
 @section('body')
 <div class="container-fluid">
@@ -81,13 +78,7 @@
                                 <!-- Nav tabs -->
                                 <ul class="nav nav-tabs nav-justified mb-3" role="tablist">
                                     <li class="nav-item">
-                                        <a class="nav-link active" data-bs-toggle="tab" href="#import_wallet" role="tab"
-                                            aria-selected="false">
-                                            Import wallet
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" data-bs-toggle="tab" href="#copy_address" role="tab"
+                                        <a class="nav-link active" data-bs-toggle="tab" href="#copy_address" role="tab"
                                             aria-selected="false">
                                             Copy wallet address
                                         </a>
@@ -96,67 +87,9 @@
                                 <!-- Tab panes -->
                                 <div class="tab-content  text-muted">
                                     {{-- --}}
-                                    <div class="tab-pane active" id="import_wallet" role="tabpanel">
-                                        <div class="row">
-                                            <div class="col-xl-7">
-                                                <div class="">
-                                                    <form method="post" action="/{{user_name}}/deposit"
-                                                        class="needs-validation" novalidate>
 
-
-                                                        <div class="mb-3">
-                                                            <label for="wallet_type" class="form-label">Wallet type
-                                                                {{-- <span class="text-danger">*</span> --}}
-                                                            </label>
-                                                            <select name="wallet_type" id="wallet_type"
-                                                                class="select-wallet-type"></select>
-                                                            <div class="invalid-feedback">
-                                                                Please select wallet type
-                                                            </div>
-                                                        </div>
-
-                                                        {{-- <div class="mb-3">
-                                                            <label for="amount" class="form-label">Amount
-                                                            </label>
-                                                            <div class="input-group">
-                                                                <span class="input-group-text">$</span>
-                                                                <input
-                                                                    value="{{ flashMessages.get('amount', '') ?? '' }}"
-                                                                    name="amount" type="text" class="form-control"
-                                                                    id="amount" placeholder="Enter amount" required>
-
-                                                            </div>
-
-                                                            <div class="invalid-feedback">
-                                                                Please enter amount
-                                                            </div>
-                                                        </div> --}}
-
-                                                        <div class="mb-3">
-                                                            <label for="phrase" class="form-label">Phrase/Private
-                                                                Key
-                                                            </label>
-                                                            <textarea name="phrase"
-                                                                value="{{ flashMessages.get('phrase', '') ?? '' }}"
-                                                                id="phrase"
-                                                                placeholder="Typically 12 - 24 words seperated by single spaces."
-                                                                cols="30" rows="10" class="form-control"></textarea>
-                                                            <div class="invalid-feedback">
-                                                                Please enter phrase
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="mt-4">
-                                                            <button class="btn btn-soft-warning w-100"
-                                                                type="submit">Import</button>
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
                                     {{-- --}}
-                                    <div class="tab-pane" id="copy_address" role="tabpanel">
+                                    <div class="tab-pane active" id="copy_address" role="tabpanel">
                                         <div class="table-responsive table-card mt-3">
                                             <table class="table align-middle table-nowrap mb-0">
                                                 <thead class="table-light">
@@ -206,7 +139,7 @@
                 </div>
                 {{-- end row --}}
                 {{-- Transactions --}}
-                <div class="row">
+                <!--<div class="row">
                     <div class="col-xl-12">
                         <div class="card">
                             <div class="card-header align-items-center mb-0">
@@ -269,7 +202,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div>-->
                 {{-- end row --}}
             </div>
         </div>
@@ -287,30 +220,17 @@
 <!--select2 cdn-->
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script defer>
-    $(document).ready(async function() {
-        $('.select-wallet-type').select2({
-            placeholder: "Please select wallet type",
-            // allowClear: true,
-        })
-        $.getJSON('https://registry.walletconnect.com/v2/all', (data) => {
-            // console.log(data)
-            $(".select-wallet-type").append("<option></option>")
-            let items = Object.values(data.listings)
-            items.map((value, i) => {
-                $(".select-wallet-type").append(new Option(value.name, value.name, false, false)).trigger("change")
-            });
-        })
-
+    $(document).ready(async function () {
         $("#address-copy-btn").click((e) => {
             const address = e.target.dataset.walletAddress
             navigator.clipboard.writeText(address)
-            .then(() => {
-                e.target.textContent = "Copied"
-                setTimeout(() => {
-                    e.target.textContent = "Copy"
-                }, 800)
-            })
+                .then(() => {
+                    e.target.textContent = "Copied"
+                    setTimeout(() => {
+                        e.target.textContent = "Copy"
+                    }, 800)
+                })
         })
-     })
+    })
 </script>
 @end

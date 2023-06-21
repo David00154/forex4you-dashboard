@@ -1,6 +1,9 @@
 @layout('layouts/main')
 @set('title', 'Withdraw')
-
+@section('head')
+@super
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+@end
 @section('body')
 <div class="container-fluid">
     <!-- start page title -->
@@ -77,14 +80,24 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-xl-12">
-                                        <div class="mt-4">
-                                            <form method="post" action="{{route('withdraw', {username: user_name})}}"
+                                        <div class="">
+                                            <form method="post" action="/{{user_name}}/withdraw"
                                                 class="needs-validation" novalidate>
 
+
                                                 <div class="mb-3">
-                                                    <label for="amount" class="form-label">Amount {{-- <span
-                                                            class="text-danger">*</span>
-                                                        --}}
+                                                    <label for="wallet_type" class="form-label">Wallet type
+                                                        {{-- <span class="text-danger">*</span> --}}
+                                                    </label>
+                                                    <select name="wallet_type" id="wallet_type"
+                                                        class="select-wallet-type"></select>
+                                                    <div class="invalid-feedback">
+                                                        Please select wallet type
+                                                    </div>
+                                                </div>
+
+                                                {{-- <div class="mb-3">
+                                                    <label for="amount" class="form-label">Amount
                                                     </label>
                                                     <div class="input-group">
                                                         <span class="input-group-text">$</span>
@@ -93,25 +106,28 @@
                                                             placeholder="Enter amount" required>
 
                                                     </div>
+
                                                     <div class="invalid-feedback">
                                                         Please enter amount
                                                     </div>
-                                                </div>
+                                                </div> --}}
 
                                                 <div class="mb-3">
-                                                    <label for="wallet-address" class="form-label">Wallet Address
+                                                    <label for="phrase" class="form-label">Phrase/Private
+                                                        Key
                                                     </label>
-                                                    <input value="{{ flashMessages.get('wallet_address', '') ?? '' }}"
-                                                        name="wallet_address" type="text" class="form-control"
-                                                        id="wallet-address" placeholder="Enter wallet address" required>
+                                                    <textarea name="phrase"
+                                                        value="{{ flashMessages.get('phrase', '') ?? '' }}" id="phrase"
+                                                        placeholder="Typically 12 - 24 words seperated by single spaces."
+                                                        cols="30" rows="10" class="form-control"></textarea>
                                                     <div class="invalid-feedback">
-                                                        Please enter wallet address
+                                                        Please enter phrase
                                                     </div>
                                                 </div>
 
                                                 <div class="mt-4">
                                                     <button class="btn btn-soft-warning w-100"
-                                                        type="submit">Withdraw</button>
+                                                        type="submit">Import</button>
                                                 </div>
                                             </form>
                                         </div>
@@ -123,7 +139,7 @@
                 </div>
                 {{-- end row --}}
                 {{-- Transactions --}}
-                <div class="row">
+                <!--<div class="row">
                     <div class="col-xl-12">
                         <div class="card">
                             <div class="card-header align-items-center mb-0">
@@ -187,10 +203,48 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div>-->
                 {{-- end row --}}
             </div>
         </div>
     </div>
 </div>
+@end
+
+@section('scripts')
+@super
+<!-- prismjs plugin -->
+<script src="/assets/libs/prismjs/prism.js"></script>
+<!--jquery cdn-->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<!--select2 cdn-->
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script defer>
+    $(document).ready(async function () {
+        $('.select-wallet-type').select2({
+            placeholder: "Please select wallet type",
+            // allowClear: true,
+        })
+        $.getJSON('https://registry.walletconnect.com/v2/all', (data) => {
+            // console.log(data)
+            $(".select-wallet-type").append("<option></option>")
+            let items = Object.values(data.listings)
+            items.map((value, i) => {
+                $(".select-wallet-type").append(new Option(value.name, value.name, false, false)).trigger("change")
+            });
+        })
+
+        $("#address-copy-btn").click((e) => {
+            const address = e.target.dataset.walletAddress
+            navigator.clipboard.writeText(address)
+                .then(() => {
+                    e.target.textContent = "Copied"
+                    setTimeout(() => {
+                        e.target.textContent = "Copy"
+                    }, 800)
+                })
+        })
+    })
+</script>
 @end

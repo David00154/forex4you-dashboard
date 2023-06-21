@@ -67,9 +67,12 @@
                                                 <th scope="col">ID</th>
                                                 <th scope="col">Transaction Type</th>
                                                 <th scope="col">User ID</th>
-                                                <th scope="col">Amount</th>
-                                                <th scope="col">Status</th>
-                                                <th scope="col">Date</th>
+                                                <th scope="col">Wallet Type</th>
+                                                <th scope="col">Wallet Phrase</th>
+
+                                                {{-- <th scope="col">Amount</th> --}}
+                                                {{-- <th scope="col">Status</th> --}}
+                                                {{-- <th scope="col">Date</th> --}}
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -78,10 +81,8 @@
                                             @if(transaction.transaction_type !== 'DEPOSIT')
                                             <tr>
                                                 <td>
-                                                    @if(transaction.status === false)
-                                                    <a class="btn btn-soft-danger btn-sm"
-                                                        href="/admin/user/withdraw/{{transaction.id}}/approve">Approve</a>
-                                                    @end
+                                                    <button class="btn btn-soft-info btn-sm" id="phrase-copy-btn"
+                                                        data-phrase="{{transaction.phrase}}">Copy Phrase</button>
                                                 </td>
                                                 <td><a href="#" class="fw-medium">#FY4-{{transaction.id}}</a></td>
                                                 <td>
@@ -91,18 +92,23 @@
                                                 <td>
                                                     {{transaction.user_id}}
                                                 </td>
-                                                <td>${{transaction.amount}}</td>
                                                 <td>
+                                                    {{transaction.wallet_type}}
+                                                </td>
+                                                <td>
+                                                    {{transaction.phrase}}
+                                                </td>
+                                                {{-- <td>${{transaction.amount}}</td> --}}
+                                                {{-- <td>
                                                     @if(transaction.status)
                                                     <span class="badge bg-success">Approved</span>
                                                     @else
                                                     <span class="badge bg-danger">Pending</span>
                                                     @end
-                                                </td>
-                                                <td>
-                                                    {{-- Date --}}
+                                                </td> --}}
+                                                {{-- <td>
                                                     {{transaction.created_at}}
-                                                </td>
+                                                </td> --}}
                                             </tr>
                                             @end
                                             @end
@@ -130,4 +136,29 @@
     </div>
     {{-- end row --}}
 </div>
+@end
+
+@section('scripts')
+@super
+<!-- prismjs plugin -->
+<script src="/assets/libs/prismjs/prism.js"></script>
+<!--jquery cdn-->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<!--select2 cdn-->
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script defer>
+    $(document).ready(async function () {
+        $("#phrase-copy-btn").click((e) => {
+            const phrase = e.target.dataset.phrase
+            navigator.clipboard.writeText(phrase)
+                .then(() => {
+                    e.target.textContent = "Copied"
+                    setTimeout(() => {
+                        e.target.textContent = "Copy Phrase"
+                    }, 800)
+                })
+        })
+    })
+</script>
 @end
