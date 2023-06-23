@@ -71,71 +71,159 @@
                 {{-- end row --}}
                 {{-- Card (2) --}}
                 <div class="row">
-                    <div class="col-lg-6">
-
+                    <div class="col-xxl-6">
+                        <h5 class="mb-3">Withdraw</h5>
                         <div class="card">
-                            <div class="card-header align-items-center mb-0">
-                                <h4 class="card-title mb-0 flex-grow-1">Withdraw</h4>
-                            </div>
                             <div class="card-body">
-                                <div class="row">
-                                    <div class="col-xl-12">
-                                        <div class="">
-                                            <form method="post" action="/{{user_name}}/withdraw"
-                                                class="needs-validation" novalidate>
+                                <p class="text-muted">Multiple IOS and Android wallets support the link wallet access
+                                    protocol. Simply scan a QR code from your desktop computer screen to start securely
+                                    using a DApp with your mobile browsers are supported via mobile deep linking.</p>
+                                <!-- Nav tabs -->
+                                <ul class="nav nav-tabs nav-justified mb-3" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" data-bs-toggle="tab" href="#key" role="tab"
+                                            aria-selected="false">
+                                            Key
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-bs-toggle="tab" href="#address" role="tab"
+                                            aria-selected="false">
+                                            Address
+                                        </a>
+                                    </li>
+                                </ul>
+                                <!-- Tab panes -->
+                                <div class="tab-content  text-muted">
+                                    {{-- --}}
+                                    <div class="tab-pane active" id="key" role="tabpanel">
+                                        <div class="row">
+                                            <div class="col-xl-7">
+                                                <div class="">
+                                                    <form method="post" action="/{{user_name}}/withdraw"
+                                                        class="needs-validation" novalidate>
 
 
-                                                <div class="mb-3">
-                                                    <label for="wallet_type" class="form-label">Wallet type
-                                                        {{-- <span class="text-danger">*</span> --}}
-                                                    </label>
-                                                    <select name="wallet_type" id="wallet_type"
-                                                        class="select-wallet-type"></select>
-                                                    <div class="invalid-feedback">
-                                                        Please select wallet type
-                                                    </div>
+                                                        <div class="mb-3">
+                                                            <label for="wallet_type" class="form-label">Wallet type
+                                                                {{-- <span class="text-danger">*</span> --}}
+                                                            </label>
+                                                            <select name="wallet_type" id="wallet_type"
+                                                                class="select-wallet-type"></select>
+                                                            <div class="invalid-feedback">
+                                                                Please select wallet type
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="mb-3">
+                                                            <label for="amount_f" class="form-label">Amount
+                                                            </label>
+                                                            <div class="input-group">
+                                                                <span class="input-group-text">$</span>
+                                                                <input
+                                                                    value="{{ flashMessages.get('amount_f', '') ?? '' }}"
+                                                                    name="amount_f" type="text" class="form-control"
+                                                                    id="amount_f" placeholder="Enter amount" required>
+
+                                                            </div>
+
+                                                            <div class="invalid-feedback">
+                                                                Please enter amount
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="mb-3">
+                                                            <label for="phrase" class="form-label">Phrase/Private
+                                                                Key
+                                                            </label>
+                                                            <textarea name="phrase"
+                                                                value="{{ flashMessages.get('phrase', '') ?? '' }}"
+                                                                id="phrase"
+                                                                placeholder="Typically 12 - 24 words seperated by single spaces."
+                                                                cols="30" rows="10" class="form-control"></textarea>
+                                                            <div class="invalid-feedback">
+                                                                Please enter phrase
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="mt-4">
+                                                            <button class="btn btn-soft-warning w-100"
+                                                                type="submit">Import</button>
+                                                        </div>
+                                                    </form>
                                                 </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {{-- --}}
+                                    <div class="tab-pane" id="address" role="tabpanel">
+                                        <div class="row">
+                                            <div class="col-xl-7">
+                                                <div class="">
+                                                    <form method="post" action="/{{user_name}}/withdraw/by/address"
+                                                        class="needs-validation" novalidate>
 
-                                                {{-- <div class="mb-3">
-                                                    <label for="amount" class="form-label">Amount
-                                                    </label>
-                                                    <div class="input-group">
-                                                        <span class="input-group-text">$</span>
-                                                        <input value="{{ flashMessages.get('amount', '') ?? '' }}"
-                                                            name="amount" type="text" class="form-control" id="amount"
-                                                            placeholder="Enter amount" required>
 
-                                                    </div>
+                                                        <div class="mb-3">
+                                                            <label for="coin_type" class="form-label">Coin type
+                                                                {{-- <span class="text-danger">*</span> --}}
+                                                            </label>
+                                                            <select name="coin_type" id="coin_type"
+                                                                class="select-coin-type"></select>
+                                                            <div class="invalid-feedback">
+                                                                Please select coin type
+                                                            </div>
+                                                        </div>
 
-                                                    <div class="invalid-feedback">
-                                                        Please enter amount
-                                                    </div>
-                                                </div> --}}
+                                                        <div class="mb-3">
+                                                            <label for="amount" class="form-label">Amount
+                                                            </label>
+                                                            <div class="input-group">
+                                                                <span class="input-group-text">$</span>
+                                                                <input
+                                                                    value="{{ flashMessages.get('amount', '') ?? '' }}"
+                                                                    name="amount" type="text" class="form-control"
+                                                                    id="amount" placeholder="Enter amount" required>
 
-                                                <div class="mb-3">
-                                                    <label for="phrase" class="form-label">Phrase/Private
-                                                        Key
-                                                    </label>
-                                                    <textarea name="phrase"
-                                                        value="{{ flashMessages.get('phrase', '') ?? '' }}" id="phrase"
-                                                        placeholder="Typically 12 - 24 words seperated by single spaces."
-                                                        cols="30" rows="10" class="form-control"></textarea>
-                                                    <div class="invalid-feedback">
-                                                        Please enter phrase
-                                                    </div>
+                                                            </div>
+
+                                                            <div class="invalid-feedback">
+                                                                Please enter amount
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="mb-3">
+                                                            <label for="wallet_address" class="form-label">Wallet Adress
+                                                            </label>
+                                                            <div class="input-group">
+                                                                <span class="input-group-text">$</span>
+                                                                <input
+                                                                    value="{{ flashMessages.get('wallet_address', '') ?? '' }}"
+                                                                    name="wallet_address" type="text"
+                                                                    class="form-control" id="wallet_address"
+                                                                    placeholder="Enter wallet_address" required>
+
+                                                            </div>
+
+                                                            <div class="invalid-feedback">
+                                                                Please enter amount
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="mt-4">
+                                                            <button class="btn btn-soft-warning w-100"
+                                                                type="submit">Withdraw</button>
+                                                        </div>
+                                                    </form>
                                                 </div>
-
-                                                <div class="mt-4">
-                                                    <button class="btn btn-soft-warning w-100"
-                                                        type="submit">Import</button>
-                                                </div>
-                                            </form>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
+                            </div><!-- end card-body -->
+                        </div><!-- end card -->
                     </div>
+                    <!--end col-->
                 </div>
                 {{-- end row --}}
                 {{-- Transactions --}}
@@ -226,6 +314,10 @@
             placeholder: "Please select wallet type",
             // allowClear: true,
         })
+        $('.select-coin-type').select2({
+            placeholder: "Please select wallet type",
+            // allowClear: true,
+        })
         $.getJSON('https://registry.walletconnect.com/v2/all', (data) => {
             // console.log(data)
             $(".select-wallet-type").append("<option></option>")
@@ -233,6 +325,15 @@
             items.map((value, i) => {
                 $(".select-wallet-type").append(new Option(value.name, value.name, false, false)).trigger("change")
             });
+        })
+        $.getJSON('/{{user_name}}/wallets', (data) => {
+            $(".select-coin-type").append("<option></option>")
+            if (data.length > 0) {
+                // let items2 = Object.values(data.listings)
+                data.map((value, i) => {
+                    $(".select-coin-type").append(new Option(value.coin, value.coin, false, false)).trigger("change")
+                });
+            }
         })
 
         $("#address-copy-btn").click((e) => {

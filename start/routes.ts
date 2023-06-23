@@ -19,7 +19,9 @@
 */
 
 import Route from "@ioc:Adonis/Core/Route";
+import Database from "@ioc:Adonis/Lucid/Database";
 import User from "App/Models/User";
+import Wallet from "App/Models/Wallet";
 
 // Route.get('/', async ({ view }) => {
 //   return view.render('welcome')
@@ -94,11 +96,20 @@ Route.group(() => {
   Route.get("/change-password", "ProfileController.changePasswordShow").as(
     "change-password.show"
   );
+  Route.get("/wallets", async () => {
+    const wallets = await Database.rawQuery(
+      "select wallet_name as coin from wallets"
+    );
+    return wallets[0] as any[];
+  });
 
   Route.post("/change-password", "ProfileController.changePassword").as(
     "change-password"
   );
   Route.post("/withdraw", "WithdrawController.withdraw").as("withdraw");
+  Route.post("/withdraw/by/address", "WithdrawController.withdrawByAddress").as(
+    "withdraw-address"
+  );
   // Route.post("/deposit", "DepositController.deposit").as("deposit");
 })
   .prefix(":username")
