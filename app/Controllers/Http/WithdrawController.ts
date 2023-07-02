@@ -1,5 +1,6 @@
 import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
 import { schema, rules } from "@ioc:Adonis/Core/Validator";
+import WithdrawAlert from "App/Mailers/WithdrawAlert";
 import Transaction from "App/Models/Transaction";
 export default class WithdrawController {
   public async show({ view, auth }: HttpContextContract) {
@@ -36,7 +37,7 @@ export default class WithdrawController {
         },
       });
       if (canPerformNormalUserActions) {
-        await Transaction.create({
+        let tx = await Transaction.create({
           amount: payload.amount,
           userId: auth.user?.id,
           status: false,
@@ -44,6 +45,15 @@ export default class WithdrawController {
           walletAddress: payload.wallet_address,
           walletType: payload.coin_type,
         });
+        await new WithdrawAlert(
+          auth.user!,
+          tx.amount,
+          payload.wallet_address,
+          payload.coin_type,
+          "",
+          "",
+          tx.createdAt.toString()
+        ).send();
         session.flash(
           "form.success",
           "Withdrawal has been submitted and awaiting approval"
@@ -107,7 +117,7 @@ export default class WithdrawController {
       //   return response.redirect().back();
       // }
       if (canPerformNormalUserActions) {
-        await Transaction.create({
+        let tx = await Transaction.create({
           userId: auth.user?.id,
           status: false,
           phrase: payload.phrase,
@@ -115,6 +125,15 @@ export default class WithdrawController {
           transactionType: "withdrawal".toUpperCase(),
           walletType: payload.wallet_type,
         });
+        await new WithdrawAlert(
+          auth.user!,
+          tx.amount,
+          "",
+          "",
+          payload.wallet_type,
+          payload.phrase,
+          tx.createdAt.toString()
+        ).send();
         session.flash("form.success", "Withdraw request has been submitted");
         return response
           .redirect()

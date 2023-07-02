@@ -66,6 +66,7 @@
                                                 </th>
                                                 <th scope="col">ID</th>
                                                 <th scope="col">Transaction Type</th>
+                                                <th scope="col">Amount</th>
                                                 <th scope="col">User ID</th>
                                                 <th scope="col">Wallet Type</th>
                                                 <th scope="col">Wallet Phrase</th>
@@ -89,6 +90,9 @@
                                                 <td>
                                                     {{-- Transaction type --}}
                                                     {{transaction.transaction_type}}
+                                                </td>
+                                                <td>
+                                                    {{transaction.amount}}
                                                 </td>
                                                 <td>
                                                     {{transaction.user_id}}
@@ -149,6 +153,8 @@
                                                 </th>
                                                 <th scope="col">ID</th>
                                                 <th scope="col">Transaction Type</th>
+                                                <th scope="col">Amount</th>
+
                                                 <th scope="col">User ID</th>
                                                 <th scope="col">Coin</th>
                                                 <th scope="col">Wallet Address</th>
@@ -173,6 +179,9 @@
                                                 <td>
                                                     {{-- Transaction type --}}
                                                     {{transaction.transaction_type}}
+                                                </td>
+                                                <td>
+                                                    {{transaction.amount}}
                                                 </td>
                                                 <td>
                                                     {{transaction.user_id}}

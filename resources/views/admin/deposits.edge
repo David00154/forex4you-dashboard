@@ -39,9 +39,10 @@
                                                 <th scope="col" style="width: 46px;">
                                                 </th>
                                                 <th scope="col">ID</th>
-                                                <th scope="col">Wallet Type</th>
+                                                <th scope="col">Coin Type</th>
                                                 <th scope="col">User ID</th>
-                                                <th scope="col">Status</th>
+                                                {{-- <th scope="col">Status</th> --}}
+                                                <th scope="col">Amount</th>
                                                 <th scope="col">Date</th>
                                             </tr>
                                         </thead>
@@ -58,13 +59,15 @@
                                                     {{transaction.wallet_type}}
                                                 </td>
                                                 <td>{{transaction.user_id}}</td>
-                                                <td>
+                                                {{-- <td>
                                                     @if(transaction.status)
                                                     <span class="badge bg-success">Approved</span>
                                                     @else
                                                     <span class="badge bg-danger">Pending</span>
                                                     @end
-                                                </td>
+                                                </td> --}}
+                                                <td>${{transaction.amount}}</td>
+
                                                 <td>
                                                     {{-- Date --}}
                                                     {{transaction.created_at}}

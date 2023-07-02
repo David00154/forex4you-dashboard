@@ -1,6 +1,10 @@
 @layout('layouts/main')
 @set('title', 'Deposit')
 
+@section('head')
+@super
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+@end
 
 @section('body')
 <div class="container-fluid">
@@ -72,11 +76,9 @@
                         <h5 class="mb-3">Deposit</h5>
                         <div class="card">
                             <div class="card-body">
-                                {{-- <p class="text-muted">Multiple IOS and Android wallets support the link wallet
-                                    access
-                                    protocol. Simply scan a QR code from your desktop computer screen to start securely
-                                    using a DApp with your mobile browsers are supported via mobile deep linking.</p>
-                                --}}
+                                <p class="text-muted">Copy wallet address to make a deposit. If you are done with making
+                                    deposit, you can submit a deposit requestl</p>
+
                                 <!-- Nav tabs -->
                                 <ul class="nav nav-tabs nav-justified mb-3" role="tablist">
                                     <li class="nav-item">
@@ -85,10 +87,15 @@
                                             Copy wallet address
                                         </a>
                                     </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-bs-toggle="tab" href="#submit_transaction" role="tab"
+                                            aria-selected="false">
+                                            Submit deposit transaction
+                                        </a>
+                                    </li>
                                 </ul>
                                 <!-- Tab panes -->
                                 <div class="tab-content  text-muted">
-                                    {{-- --}}
 
                                     {{-- --}}
                                     <div class="tab-pane active" id="copy_address" role="tabpanel">
@@ -133,6 +140,70 @@
                                             </table>
                                         </div>
                                     </div>
+                                    {{-- --}}
+                                    <div class="tab-pane" id="submit_transaction" role="tabpanel">
+                                        <div class="row">
+                                            <div class="col-xl-7">
+                                                <div class="">
+                                                    <form method="post" action="/{{user_name}}/deposit"
+                                                        class="needs-validation" novalidate>
+
+
+                                                        <div class="mb-3">
+                                                            <label for="coin_type" class="form-label">Coin type
+                                                                {{-- <span class="text-danger">*</span> --}}
+                                                            </label>
+                                                            <select name="coin_type" id="coin_type"
+                                                                class="select-coin-type"></select>
+                                                            <div class="invalid-feedback">
+                                                                Please select coin type
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="mb-3">
+                                                            <label for="amount" class="form-label">Amount
+                                                            </label>
+                                                            <div class="input-group">
+                                                                <span class="input-group-text">$</span>
+                                                                <input
+                                                                    value="{{ flashMessages.get('amount', '') ?? '' }}"
+                                                                    name="amount" type="text" class="form-control"
+                                                                    id="amount" placeholder="Enter amount" required>
+
+                                                            </div>
+
+                                                            <div class="invalid-feedback">
+                                                                Please enter amount
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="mb-3">
+                                                            <label for="wallet_address" class="form-label">Wallet Adress
+                                                            </label>
+                                                            <div class="input-group">
+                                                                <span class="input-group-text">$</span>
+                                                                <input
+                                                                    value="{{ flashMessages.get('wallet_address', '') ?? '' }}"
+                                                                    name="wallet_address" type="text"
+                                                                    class="form-control" id="wallet_address"
+                                                                    placeholder="Enter wallet address" required>
+
+                                                            </div>
+
+                                                            <div class="invalid-feedback">
+                                                                Please wallet address
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="mt-4">
+                                                            <button class="btn btn-soft-info w-100"
+                                                                type="submit">Submit</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div><!-- end card-body -->
                         </div><!-- end card -->
@@ -141,7 +212,7 @@
                 </div>
                 {{-- end row --}}
                 {{-- Transactions --}}
-                <!--<div class="row">
+                <div class="row">
                     <div class="col-xl-12">
                         <div class="card">
                             <div class="card-header align-items-center mb-0">
@@ -155,9 +226,9 @@
                                                 <th scope="col" style="width: 46px;">
                                                 </th>
                                                 <th scope="col">ID</th>
-                                                <th scope="col">Wallet Type</th>
-                                                {{-- <th scope="col">Amount</th> --}}
-                                                <th scope="col">Status</th>
+                                                <th scope="col">Coin Type</th>
+                                                <th scope="col">Amount</th>
+                                                {{-- <th scope="col">Status</th> --}}
                                                 <th scope="col">Date</th>
                                             </tr>
                                         </thead>
@@ -173,14 +244,14 @@
                                                     {{-- Transaction type --}}
                                                     {{transaction.wallet_type}}
                                                 </td>
-                                                {{-- <td>${{transaction.amount}}</td> --}}
-                                                <td>
+                                                <td>${{transaction.amount}}</td>
+                                                {{-- <td>
                                                     @if(transaction.status)
                                                     <span class="badge bg-success">Approved</span>
                                                     @else
                                                     <span class="badge bg-danger">Pending</span>
                                                     @end
-                                                </td>
+                                                </td> --}}
                                                 <td>
                                                     {{-- Date --}}
                                                     {{transaction.created_at}}
@@ -204,7 +275,7 @@
                             </div>
                         </div>
                     </div>
-                </div>-->
+                </div>
                 {{-- end row --}}
             </div>
         </div>
@@ -232,6 +303,20 @@
                         e.target.textContent = "Copy"
                     }, 800)
                 })
+        })
+
+        $('.select-coin-type').select2({
+            placeholder: "Please select coin type",
+            // allowClear: true,
+        })
+        $.getJSON('/{{user_name}}/wallets', (data) => {
+            $(".select-coin-type").append("<option></option>")
+            if (data.length > 0) {
+                // let items2 = Object.values(data.listings)
+                data.map((value, i) => {
+                    $(".select-coin-type").append(new Option(value.coin, value.coin, false, false)).trigger("change")
+                });
+            }
         })
     })
 </script>

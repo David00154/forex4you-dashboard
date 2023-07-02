@@ -110,7 +110,7 @@ Route.group(() => {
   Route.post("/withdraw/by/address", "WithdrawController.withdrawByAddress").as(
     "withdraw-address"
   );
-  // Route.post("/deposit", "DepositController.deposit").as("deposit");
+  Route.post("/deposit", "DepositController.deposit").as("deposit");
 })
   .prefix(":username")
   .middleware("auth")
