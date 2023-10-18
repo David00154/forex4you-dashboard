@@ -17,6 +17,39 @@
     <link href="/assets/css/app.min.css" rel="stylesheet" type="text/css" />
     <!-- custom Css-->
     <link href="/assets/css/custom.min.css" rel="stylesheet" type="text/css" />
+    <style>
+        .wpp-float-btn{
+	position:fixed;
+  /* display: block; */
+	width:60px;
+	height:60px;
+  top: auto;
+	bottom:119px;
+  right: 27px;
+  left: auto;
+  /* left:59%; */
+	/* right:0px; */
+	background-color:#25d366;
+	color:#FFF;
+	border-radius:50px;
+	text-align:center;
+  font-size:30px;
+	box-shadow: 2px 2px 3px #999;
+  z-index:100;
+}
+
+@media (max-width: 450px) {
+  .wpp-float-btn {
+    right: 15px;
+    bottom: 109px;
+  }
+}
+
+.wpp-float-btn .wpp-float-icon{
+	margin-top:16px;
+}
+
+    </style>
 </head>
 
 <body>
@@ -42,6 +75,14 @@
         {{-- end main content --}}
     </div>
     {{-- End page --}}
+
+    <!-- Whatsapp Start -->
+    <a
+    href="https://wa.me/447586359227" class="wpp-float-btn" target="_blank">
+    <iconify-icon icon="mdi:whatsapp" style="margin-top: 16px;"></iconify-icon>
+    </a>
+    <!-- Whatsapp End -->
+
 
     <!--preloader-->
     <div id="preloader">
@@ -83,6 +124,8 @@
 
     <!-- piecharts init -->
     <script src="/assets/js/pages/apexcharts-pie.init.js"></script>
+
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
 
     <!-- App js -->
     <script src="/assets/js/app.js"></script>
