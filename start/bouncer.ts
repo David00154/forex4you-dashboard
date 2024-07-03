@@ -32,11 +32,12 @@ import User from "App/Models/User";
 */
 export const { actions } = Bouncer.define(
   "canPerformNormalUserActions",
-  async (user: User) => {
-    if (user.isVerified) {
-      return true;
-    }
-    return Bouncer.deny("Action not allowed, you're not activated");
+  async (_user: User) => {
+    // if (user.isVerified) {
+    //   return true;
+    // }
+    return true;
+    // return Bouncer.deny("Action not allowed, you're not activated");
   }
 );
 

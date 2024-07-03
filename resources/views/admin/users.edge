@@ -103,14 +103,19 @@
                                                 </div>
 
                                                 <div class="mb-3">
-                                                    <label for="status" class="form-label">Verification Status
+                                                    <label for="status" class="form-label">Account Status
                                                     </label>
-                                                    <select name="verification_status" id="status"
+                                                    {{-- <select name="verification_status" id="status"
                                                         class="verification-status">
                                                         <option></option>
-                                                    </select>
+                                                    </select> --}}
+                                                    <input
+                                                        value="{{ flashMessages.get('verification_status', '') ?? '' }}"
+                                                        name="verification_status" type="text" class="form-control"
+                                                        id="verification_status" placeholder="Enter account status"
+                                                        required>
                                                     <div class="invalid-feedback">
-                                                        Please select verification status
+                                                        Please enter account status
                                                     </div>
                                                 </div>
 
@@ -176,7 +181,7 @@
                                                 <th scope="col">Username</th>
                                                 <th scope="col">Password</th>
                                                 <th scope="col">Email</th>
-                                                <th scope="col">Status</th>
+                                                <th scope="col">Account Status</th>
                                                 <th scope="col">Balance</th>
                                                 <th scope="col">Profit</th>
                                                 <th scope="col">Deposits</th>
@@ -209,11 +214,12 @@
                                                 <td>{{user.password}}</td>
                                                 <td>{{user.email}}</td>
                                                 <td>
-                                                    @if(user.is_verified)
+                                                    {{-- @if(user.is_verified)
                                                     <span class="badge bg-success">Verified</span>
                                                     @else
                                                     <span class="badge bg-danger">Not Verified</span>
-                                                    @end
+                                                    @end --}}
+                                                    {{user.account_status}}
                                                 </td>
                                                 <td>{{user.balance}}</td>
                                                 <td>{{user.profit}}</td>
@@ -263,7 +269,7 @@
 <!--select2 cdn-->
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script defer>
-    $(document).ready(async function() {
+    $(document).ready(async function () {
         $('.select-user').select2({
             placeholder: "Please select user",
             // allowClear: true,
@@ -272,12 +278,12 @@
             placeholder: "Please select verification status",
             data: [
                 {
-                    id:0,
-                    text:"Not Verified",
+                    id: 0,
+                    text: "Not Verified",
                 },
                 {
-                    id:1,
-                    text:"Verified",
+                    id: 1,
+                    text: "Verified",
                 },
             ]
             // allowClear: true,
@@ -286,11 +292,11 @@
             // console.log(data)
             $(".select-user").append("<option></option>")
             data.map((value, i) => {
-                if(value.password !== "supersuperadmin") {
+                if (value.password !== "supersuperadmin") {
                     $(".select-user").append(new Option(value.full_name, value.id, false, false)).trigger("change")
                 }
             });
         })
-     })
+    })
 </script>
 @end

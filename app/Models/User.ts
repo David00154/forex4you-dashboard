@@ -20,6 +20,9 @@ export default class User extends BaseModel {
   public isVerified: boolean;
 
   @column()
+  public accountStatus: string;
+
+  @column()
   public fullName: string;
 
   @column()

@@ -194,20 +194,20 @@ export default class AdminController {
               "trade_duration",
               "profit_positivity",
               "profit_percentage",
-              // "verification_status",
+              "verification_status",
             ]),
           ]),
           trade_duration: schema.number.optional([rules.trim()]),
           profit_positivity: schema.number.optional([rules.trim()]),
           profit_percentage: schema.number.optional([rules.trim()]),
-          // verification_status: schema.boolean.optional([rules.trim()]),
+          verification_status: schema.string.optional([rules.trim()]),
         }),
         messages: {
           requiredIfExistsAny: "The {{field}} is required.",
         },
       });
       if (payload.user_id) {
-        let { verification_status } = request.only(["verification_status"]);
+        // let { verification_status } = request.only(["verification_status"]);
         let user = await User.findBy("id", payload.user_id);
         let newUser = user?.toJSON();
         await user
@@ -221,10 +221,14 @@ export default class AdminController {
             profitPercentage: this.isEmpty(payload.profit_percentage)
               ? newUser?.profitPercentage
               : payload.profit_percentage,
-            isVerified:
-              Boolean(parseInt(verification_status)) == null
-                ? Boolean(newUser?.isVerified)
-                : Boolean(parseInt(verification_status)),
+            isVerified: true,
+            account_status: this.isEmpty(payload.verification_status)
+              ? newUser?.accountStatus
+              : payload.verification_status,
+            // isVerified:
+            //   Boolean(parseInt(verification_status)) == null
+            //     ? Boolean(newUser?.isVerified)
+            //     : Boolean(parseInt(verification_status)),
           })
           .save();
         session.flash("form.success", "User configured");

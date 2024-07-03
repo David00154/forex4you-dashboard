@@ -22,7 +22,20 @@
     </div>
     <!-- end page title -->
     {{-- show if account is not activated --}}
-    @if(!is_verified)
+    @if(account_status)
+    <div class="row pb-1 mb-3">
+        <div class="col-sm-auto">
+            <div class="alert alert-success alert-top-border alert-dismissible fade show" role="alert">
+                <i class="ri-error-warning-line me-3 align-middle fs-16 text-success "></i>
+                <strong>Status</strong>
+                - {{account_status}}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                </button>
+            </div>
+        </div>
+    </div>
+    @end
+    {{-- @if(!is_verified)
     <div class="row pb-1 mb-3">
         <div class="col-sm-auto">
             <div class="alert alert-danger alert-top-border alert-dismissible fade show" role="alert">
@@ -34,7 +47,7 @@
             </div>
         </div>
     </div>
-    @end
+    @end --}}
     {{-- end row --}}
     {{-- 1 --}}
     <div class="profile-foreground position-relative profile-header-img mx-n4 mt-n4">
@@ -141,7 +154,7 @@
                                                         <th class="ps-0" scope="row">Joining Date</th>
                                                         <td class="text-muted">
                                                             <script>
-                                                                let newDate =  new Date("{{created_at}}")
+                                                                let newDate = new Date("{{created_at}}")
                                                                 document.write(newDate.toDateString())
                                                                 // document.write(new Intl.DateTimeFormat().format())
                                                             </script>
