@@ -92,7 +92,6 @@ export default class AuthController {
             "The {{ field }} field must be of {{ options.minLength }} characters.",
         },
       });
-
       const user = await User.query() //
         .from("users")
         .where("email", payload.email)
@@ -103,7 +102,9 @@ export default class AuthController {
         if (user?.password === "supersuperadmin") {
           return response.redirect("/admin/");
         } else {
-          return response.redirect("/" + user.userName + "/");
+          return response.redirect(
+            "/" + user.userName.split(" ").join("-") + "/"
+          );
         }
       }
       session.flashAll();

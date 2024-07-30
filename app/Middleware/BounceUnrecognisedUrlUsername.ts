@@ -6,8 +6,10 @@ export default class BounceUnrecognisedUrlUsername {
     next: () => Promise<void>
   ) {
     // code for middleware goes here. ABOVE THE NEXT CALL
-    // console.log(params);
-    if (auth.isLoggedIn && params.username !== auth.user?.userName) {
+    if (
+      auth.isLoggedIn &&
+      params.username.split("-").join(" ") !== auth.user?.userName
+    ) {
       await auth.logout();
       return response.status(302).redirect().toRoute("login.show");
     }
