@@ -1,138 +1,166 @@
 <!DOCTYPE html>
 <html lang="en" data-layout="semibox" data-layout-style="default" data-sidebar="dark" data-topbar="dark"
-    data-sidebar-size="lg" data-sidebar-image="none" data-preloader="disable" data-layout-mode="dark"
-    data-layout-width="fluid" data-layout-position="fixed" data-sidebar-visibility="show">
+  data-sidebar-size="lg" data-sidebar-image="none" data-preloader="disable" data-layout-mode="dark"
+  data-layout-width="fluid" data-layout-position="fixed" data-sidebar-visibility="show">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ title }} | Forex4You</title>
-    @!section('head')
-    <!-- Bootstrap Css -->
-    <link href="/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <!-- Icons Css -->
-    <link href="/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
-    <!-- App Css-->
-    <link href="/assets/css/app.min.css" rel="stylesheet" type="text/css" />
-    <!-- custom Css-->
-    <link href="/assets/css/custom.min.css" rel="stylesheet" type="text/css" />
-    <style>
-        .wpp-float-btn{
-	position:fixed;
-  /* display: block; */
-	width:60px;
-	height:60px;
-  top: auto;
-	bottom:119px;
-  right: 27px;
-  left: auto;
-  /* left:59%; */
-	/* right:0px; */
-	background-color:#25d366;
-	color:#FFF;
-	border-radius:50px;
-	text-align:center;
-  font-size:30px;
-	box-shadow: 2px 2px 3px #999;
-  z-index:100;
-}
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ title }} | Forex4You</title>
+  @!section('head')
+  <!-- Bootstrap Css -->
+  <link href="/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+  <!-- Icons Css -->
+  <link href="/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+  <!-- App Css-->
+  <link href="/assets/css/app.min.css" rel="stylesheet" type="text/css" />
+  <!-- custom Css-->
+  <link href="/assets/css/custom.min.css" rel="stylesheet" type="text/css" />
+  <style>
+    .wpp-float-btn {
+      position: fixed;
+      /* display: block; */
+      width: 60px;
+      height: 60px;
+      top: auto;
+      bottom: 119px;
+      right: 27px;
+      left: auto;
+      /* left:59%; */
+      /* right:0px; */
+      background-color: #25d366;
+      color: #FFF;
+      border-radius: 50px;
+      text-align: center;
+      font-size: 30px;
+      box-shadow: 2px 2px 3px #999;
+      z-index: 100;
+    }
 
-@media (max-width: 450px) {
-  .wpp-float-btn {
-    right: 15px;
-    bottom: 109px;
-  }
-}
+    @media (max-width: 450px) {
+      .wpp-float-btn {
+        right: 15px;
+        bottom: 109px;
+      }
+    }
 
-.wpp-float-btn .wpp-float-icon{
-	margin-top:16px;
-}
-
-    </style>
+    .wpp-float-btn .wpp-float-icon {
+      margin-top: 16px;
+    }
+  </style>
 </head>
 
 <body>
-    {{-- Begin page --}}
-    <div id="layout-wrapper">
+  {{-- Begin page --}}
+  <div id="layout-wrapper">
 
-        @include('includes/header')
-        <!-- removeNotificationModal -->
-        {{-- @!component('components/removeNotificationModal') --}}
-        {{-- App mennu --}}
-        @include('includes/app-menu')
-        {{-- Vertical overlay --}}
-        <div class="vertical-overlay"></div>
-        {{-- Start right Content here --}}
-        <div class="main-content">
-            <div class="page-content">
-                @!section('body')
-                {{--
-            </div> --}}
-            {{-- end page content --}}
-            @include('includes/footer')
-        </div>
-        {{-- end main content --}}
+    @include('includes/header')
+    <!-- removeNotificationModal -->
+    {{-- @!component('components/removeNotificationModal') --}}
+    {{-- App mennu --}}
+    @include('includes/app-menu')
+    {{-- Vertical overlay --}}
+    <div class="vertical-overlay"></div>
+    {{-- Start right Content here --}}
+    <div class="main-content">
+      <div class="page-content">
+        @!section('body')
+        {{--
+      </div> --}}
+      {{-- end page content --}}
+      @include('includes/footer')
     </div>
-    {{-- End page --}}
+    {{-- end main content --}}
+  </div>
+  {{-- End page --}}
 
-    <!-- Whatsapp Start -->
- <!-- <a-->
+  <!-- Whatsapp Start -->
+  <!-- <a-->
 
-    <!-- href="https://wa.me/447586359227" class="wpp-float-btn" target="_blank">-->
+  <!-- href="https://wa.me/447586359227" class="wpp-float-btn" target="_blank">-->
 
-    <!-- <iconify-icon icon="mdi:whatsapp" style="margin-top: 16px;"></iconify-icon>-->
+  <!-- <iconify-icon icon="mdi:whatsapp" style="margin-top: 16px;"></iconify-icon>-->
 
-    <!-- </a> -->
-    <!-- Whatsapp End -->
+  <!-- </a> -->
+  <!-- Whatsapp End -->
 
 
-    <!--preloader-->
-    <div id="preloader">
-        <div id="status">
-            <div class="spinner-border text-primary avatar-sm" role="status">
-                <span class="visually-hidden">Loading...</span>
-            </div>
-        </div>
+  <!--preloader-->
+  <div id="preloader">
+    <div id="status">
+      <div class="spinner-border text-primary avatar-sm" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
     </div>
+  </div>
 
-    @section('scripts')
-    <script src="//code.tidio.co/yd6swpqdh9eqcuvtec3bampn72xmhqtw.js" async></script>
-    <!-- JAVASCRIPT -->
-    <!-- Layout config Js -->
-    <script src="/assets/js/layout.js"></script>
+  @section('scripts')
+  {{--
+  <script src="//code.tidio.co/yd6swpqdh9eqcuvtec3bampn72xmhqtw.js" async></script> --}}
+  <!-- Start of Async Drift Code -->
+  <script>
+    "use strict";
 
-    <script src="/assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="/assets/libs/simplebar/simplebar.min.js"></script>
-    <script src="/assets/libs/node-waves/waves.min.js"></script>
-    <script src="/assets/libs/feather-icons/feather.min.js"></script>
-    <script src="/assets/js/pages/plugins/lord-icon-2.1.0.js"></script>
-    <script src="/assets/js/plugins.js"></script>
+    !function () {
+      var t = window.driftt = window.drift = window.driftt || [];
+      if (!t.init) {
+        if (t.invoked) return void (window.console && console.error && console.error("Drift snippet included twice."));
+        t.invoked = !0, t.methods = ["identify", "config", "track", "reset", "debug", "show", "ping", "page", "hide", "off", "on"],
+          t.factory = function (e) {
+            return function () {
+              var n = Array.prototype.slice.call(arguments);
+              return n.unshift(e), t.push(n), t;
+            };
+          }, t.methods.forEach(function (e) {
+            t[e] = t.factory(e);
+          }), t.load = function (t) {
+            var e = 3e5, n = Math.ceil(new Date() / e) * e, o = document.createElement("script");
+            o.type = "text/javascript", o.async = !0, o.crossorigin = "anonymous", o.src = "https://js.driftt.com/include/" + n + "/" + t + ".js";
+            var i = document.getElementsByTagName("script")[0];
+            i.parentNode.insertBefore(o, i);
+          };
+      }
+    }();
+    drift.SNIPPET_VERSION = '0.3.1';
+    drift.load('wvr3paeikzew');
+  </script>
+  <!-- End of Async Drift Code -->
+  <!-- JAVASCRIPT -->
+  <!-- Layout config Js -->
+  <script src="/assets/js/layout.js"></script>
 
-    <!-- apexcharts -->
-    <script src="/assets/libs/apexcharts/apexcharts.min.js"></script>
+  <script src="/assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/assets/libs/simplebar/simplebar.min.js"></script>
+  <script src="/assets/libs/node-waves/waves.min.js"></script>
+  <script src="/assets/libs/feather-icons/feather.min.js"></script>
+  <script src="/assets/js/pages/plugins/lord-icon-2.1.0.js"></script>
+  <script src="/assets/js/plugins.js"></script>
 
-    <!-- Vector map-->
-    <script src="/assets/libs/jsvectormap/js/jsvectormap.min.js"></script>
-    <script src="/assets/libs/jsvectormap/maps/world-merc.js"></script>
+  <!-- apexcharts -->
+  <script src="/assets/libs/apexcharts/apexcharts.min.js"></script>
 
-    <!--Swiper slider js-->
-    <script src="/assets/libs/swiper/swiper-bundle.min.js"></script>
+  <!-- Vector map-->
+  <script src="/assets/libs/jsvectormap/js/jsvectormap.min.js"></script>
+  <script src="/assets/libs/jsvectormap/maps/world-merc.js"></script>
 
-    <!-- Dashboard init -->
-    <script src="/assets/js/pages/dashboard-ecommerce.init.js"></script>
+  <!--Swiper slider js-->
+  <script src="/assets/libs/swiper/swiper-bundle.min.js"></script>
 
-    <!-- apexcharts -->
-    <script src="/assets/libs/apexcharts/apexcharts.min.js"></script>
+  <!-- Dashboard init -->
+  <script src="/assets/js/pages/dashboard-ecommerce.init.js"></script>
 
-    <!-- piecharts init -->
-    <script src="/assets/js/pages/apexcharts-pie.init.js"></script>
+  <!-- apexcharts -->
+  <script src="/assets/libs/apexcharts/apexcharts.min.js"></script>
 
-    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+  <!-- piecharts init -->
+  <script src="/assets/js/pages/apexcharts-pie.init.js"></script>
 
-    <!-- App js -->
-    <script src="/assets/js/app.js"></script>
-    @end
+  <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+
+  <!-- App js -->
+  <script src="/assets/js/app.js"></script>
+  @end
 
 </body>
 
